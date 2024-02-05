@@ -1,0 +1,39 @@
+#!/bin/sh /etc/rc.common
+
+USE_PROCD=1
+
+start_service() {
+        local start_deamon
+
+        config_load 'tuyad'
+        config_get start_deamon 'tuyad_sct' start_deamon
+
+        procd_open_instance
+
+        if [ "$start_deamon" -eq 1 ]; then
+                echo "Starting program as deamon"
+                procd_set_param command tuyad -p 1gfojsc0yg0iytpi -d 2674203ca4a416dba9gmex -s iiC3zYjo4hc1W9sy -D
+        else
+                echo "Starting program"
+                procd_set_param command tuyad -p 1gfojsc0yg0iytpi -d 2674203ca4a416dba9gmex -s iiC3zYjo4hc1W9sy
+        fi
+
+        procd_set_param pidfile /var/run/tuyad.pid
+        procd_set_param file /etc/config/tuyad
+        procd_close_instance
+}
+
+stop_service() {
+        echo "Terminating program"
+        #procd_kill tuyad
+        killall tuyad
+}
+
+service_triggers() {
+        procd_add_reload_trigger "tuyad"
+}
+
+reload_service() {
+        stop
+        start
+}
