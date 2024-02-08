@@ -126,4 +126,5 @@ void send_report(tuya_mqtt_context_t *context, struct arguments args, char *repo
 {
         syslog(LOG_INFO, "Sending report to cloud");
         tuyalink_thing_property_report(context, args.device_id, report);
+        free(report);
 }

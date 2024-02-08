@@ -64,10 +64,7 @@ int exe_program(struct arguments args)
         {
                 tuya_mqtt_loop(client);
                 ubus_get_mem_info(&memory, ctx);
-                char *report = NULL;
-                report = generate_report_json(memory);
-                send_report(client, args, report);
-                free(report);
+                send_report(client, args, generate_report_json(memory));
         }
 
         return ret;
@@ -119,7 +116,6 @@ void clean_up()
 
 char *generate_report_json(struct MemData memory)
 {
-        char *report = NULL;
         cJSON *object = cJSON_CreateObject();
 
         cJSON_AddItemToObject(object, "Total", cJSON_CreateNumber(memory.total));
@@ -129,8 +125,9 @@ char *generate_report_json(struct MemData memory)
         cJSON_AddItemToObject(object, "Available", cJSON_CreateNumber(memory.available));
         cJSON_AddItemToObject(object, "Cached", cJSON_CreateNumber(memory.cached));
 
-        report = cJSON_Print(object);
-        cJSON_free(object);
+        char *report = cJSON_Print(object);
+
+        cJSON_Delete(object);
 
         return report;
 }

@@ -41,8 +41,3 @@ reload_service() {
         stop
         start
 }
-
-stop_service() {
-        echo "Terminating program"
-        killall tuyad
-}
