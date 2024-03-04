@@ -1,0 +1,43 @@
+#!/bin/sh /etc/rc.common
+
+USE_PROCD=1
+START=99
+
+CONFIG=tuyad
+
+start_service() {
+        local start_deamon
+        local product_id
+        local device_id
+        local device_secret
+
+        config_load "$CONFIG"
+
+        config_get start_deamon 'tuyad_sct' start_deamon
+        config_get product_id 'tuyad_sct' product_id 
+        config_get device_id 'tuyad_sct' device_id
+        config_get device_secret 'tuyad_sct' device_secret
+
+        procd_open_instance
+        procd_set_param command /usr/bin/tuyad -p $product_id -d $device_id -s $device_secret
+
+        if [ "$start_deamon" -eq 1 ]; then
+                echo "Starting program as deamon"
+                procd_append_param command -D
+        else
+                echo "Starting program"
+        fi
+
+        procd_set_param pidfile /var/run/tuyad.pid
+        procd_set_param file /etc/config/tuyad
+        procd_close_instance
+}
+
+service_triggers() {
+        procd_add_reload_trigger "tuyad"
+}
+
+reload_service() {
+        stop
+        start
+}
