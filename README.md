@@ -1,21 +1,16 @@
-First task. Connecting the router to the Tuya IoT cloud
+Third task. Implementing ESP devices control over Tuya platform
 
-This task is intended to help consolidate your acquired theoretical knowledge in practice. It will also help you better to understand the structure of the OpenWRT system, create new packages for it and apply new software.
+In this task you will need to combine your first and second task so that it will be possible to control ESP devices from Tuya platform by sending different actions.
 
-For this task you will need to change your Tuya IoT daemon program so that it would work on the RutOS system. 
+If your Tuya clouds program is stored in GIT, create another branch which will represent a different version of your program.
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+In this task, you need to change Tuya program in that way, that it will only have actions to control ESP devices. Your previous data sending, and actions aren’t needed anymore. Your program should use UBUS to communicate between programs.
+
+Tuya platform must have two or three actions, depends how you will implement the functionality. One is to get the list of active ESP devices and the other to send command to turn on or off the pin of the ESP device. When controlling the pins over the action, don’t forget to send the port of the ESP device which you want to control.
+
+Success or failure/error messages must be returned back to Tuya platform.
 
 Task result:
 
-    A daemon type program has been prepared that will send data to the Tuya IoT cloud.
-    Founded library or SDK that will be used to communicate with the Tuya IoT cloud. The library/SDK is prepared as a separate package.
-    A web interface is prepared through which the program will be managed and only the most necessary input fields are provided to configure the program.
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-A total of three different packages must be prepared:
-
-    A daemon type program is responsible for communicating with Tuya IoT cloud
-    A library/SDK which will be used to communicate and send data to Tuya IoT cloud
-    WEB interface
+    Modified Tuya program which can communicate with ESP devices control program
+    Two separate programs. One for Tuya and one for ESP devices
