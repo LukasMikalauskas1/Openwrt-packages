@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <syslog.h>
 #include <signal.h>
 
 #include "mqtt_client_interface.h"
@@ -16,6 +15,8 @@
 
 #include "argparse.h"
 #include "cloud_connect.h"
+
+#include <syslog.h>
 
 /*Function that starts the tuya esp controler program*/
 int start_tuya_controler(int argc, char **argv);

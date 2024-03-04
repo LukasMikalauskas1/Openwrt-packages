@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-#include <syslog.h>
 #include <sys/sysinfo.h>
 #include <unistd.h>
 
@@ -17,6 +16,7 @@
 #include "argparse.h"
 
 #include "tuya_ubus_utils.h"
+#include <syslog.h>
 
 /*Function used to connect to tuya cloud*/
 int cloud_connect(tuya_mqtt_context_t *context, struct arguments args);
